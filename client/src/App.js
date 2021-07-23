@@ -7,15 +7,22 @@ import {
   Link
 } from "react-router-dom";
 
+import withContext from './Context';
+import Header from './components/Header';
 import Public from './components/Public';
+
+const HeaderWithContext = withContext(Header);
+
 
 function App() {
 
   return (
     <div className="App">
+    <HeaderWithContext />
     <Public />
     </div>
   );
+
 }
 
 export default App;
