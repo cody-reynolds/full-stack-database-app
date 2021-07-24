@@ -10,8 +10,10 @@ import {
 import withContext from './Context';
 import Header from './components/Header';
 import Public from './components/Public';
+import Courses from './components/Courses';
 
 const HeaderWithContext = withContext(Header);
+const CoursesWithContext = withContext(Courses);
 
 
 function App() {
@@ -19,7 +21,8 @@ function App() {
   return (
     <div className="App">
     <HeaderWithContext />
-    <Public />
+    {/* <Public /> */}
+    <CoursesWithContext />
     </div>
   );
 
