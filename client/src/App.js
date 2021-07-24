@@ -19,11 +19,14 @@ const CoursesWithContext = withContext(Courses);
 function App() {
 
   return (
-    <div className="App">
-    <HeaderWithContext />
-    {/* <Public /> */}
-    <CoursesWithContext />
-    </div>
+    <Router>
+      <div className="App">
+      <HeaderWithContext />
+      <Switch>
+        <Route exact path="/" component={CoursesWithContext} />
+      </Switch>
+      </div>
+    </Router>
   );
 
 }

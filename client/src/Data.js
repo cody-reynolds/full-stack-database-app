@@ -88,6 +88,22 @@ export default class Data {
             }
         }
 
+    // getCourseDetails - a GET request to api/courses/:id
+    async getCourseDetails(courseId) {
+        const response = await this.api(`/courses/${courseId}`, 'GET', null, false, null);
+        if (response.status === 200) {
+            return response.json().then(data => data);
+        }
+        else if (response.status === 400) {
+            return response.json().then(data => {
+                return data.errors;
+            });
+        }
+        else {
+            throw new Error();
+        }
+    }
+
     // createCourse - a POST request to api/courses
     async createCourse(course) {
         const response = await this.api('/users', 'POST', course);
