@@ -11,9 +11,11 @@ import withContext from './Context';
 import Header from './components/Header';
 import Public from './components/Public';
 import Courses from './components/Courses';
+import CourseDetail from './components/CourseDetail';
 
 const HeaderWithContext = withContext(Header);
 const CoursesWithContext = withContext(Courses);
+const CourseDetailWithContext = withContext(CourseDetail);
 
 
 function App() {
@@ -24,6 +26,7 @@ function App() {
       <HeaderWithContext />
       <Switch>
         <Route exact path="/" component={CoursesWithContext} />
+        <Route path="/courses/:id" component={CourseDetail} />
       </Switch>
       </div>
     </Router>

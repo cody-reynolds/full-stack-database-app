@@ -19,7 +19,7 @@ export default class Courses extends Component {
         <main>
                 <div class="wrap main--grid">
                 {courseData.map(course => (
-                <Link class="course--module course--link" to={`/course-details/${course.id}`}>
+                <Link class="course--module course--link" to={`/courses/${course.id}`}>
                     <h2 class="course--label">Course</h2>
                     <h3 class="course--title">{course.title}</h3>
                 </Link>
