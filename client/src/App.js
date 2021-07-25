@@ -26,7 +26,7 @@ function App() {
       <HeaderWithContext />
       <Switch>
         <Route exact path="/" component={CoursesWithContext} />
-        <Route path="/courses/:id" component={CourseDetail} />
+        <Route path="/courses/:id" component={CourseDetailWithContext} />
       </Switch>
       </div>
     </Router>
