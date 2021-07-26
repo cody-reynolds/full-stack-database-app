@@ -12,10 +12,12 @@ import Header from './components/Header';
 import Public from './components/Public';
 import Courses from './components/Courses';
 import CourseDetail from './components/CourseDetail';
+import UserSignIn from './components/UserSignIn';
 
 const HeaderWithContext = withContext(Header);
 const CoursesWithContext = withContext(Courses);
 const CourseDetailWithContext = withContext(CourseDetail);
+const UserSignInWithContext = withContext(UserSignIn);
 
 
 function App() {
@@ -27,6 +29,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={CoursesWithContext} />
         <Route path="/courses/:id" component={CourseDetailWithContext} />
+        <Route path="/signin" component={UserSignInWithContext} />
       </Switch>
       </div>
     </Router>

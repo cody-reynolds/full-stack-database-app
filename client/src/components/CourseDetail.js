@@ -1,25 +1,31 @@
 import React, { useState, useEffect } from 'react';
+import {Link} from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
 
 export default function CourseDetail (props) {
-    const courseId = useParams();
+    const {id} = useParams();
     const [courseDetails, setCourseDetails] = useState([]);
+    const [user, setUser] = useState([])
     const {context} = props;
 
     useEffect(() => {
-      context.data.getCourseDetails(courseId.id)
-      .then(courseData => setCourseDetails(courseData))
-      .then(console.log(courseDetails));
+      context.data.getCourseDetails(id)
+      .then(courseData => {
+          setCourseDetails(courseData);
+          setUser(courseDetails.user);
+        })
+      .then(console.log(courseDetails))
+      .then(console.log(user));
     }, []);
 
         return(
             <main>
-                <div class="actions--bar">
-                    <div class="wrap">
-                        <a class="button" href="update-course.html">Update Course</a>
-                        <a class="button" href="delete-course.html">Delete Course</a>
-                        <a class="button button-secondary" href="index.html">Return to List</a>
+                <div className="actions--bar">
+                    <div className="wrap">
+                        <a className="button" href="update-course.html">Update Course</a>
+                        <a className="button" href="delete-course.html">Delete Course</a>
+                        <Link className="button button-secondary" to="/">Return to List</Link>
                     </div>
                 </div>
                 <div class="wrap">
@@ -29,7 +35,7 @@ export default function CourseDetail (props) {
                         <div>
                             <h3 class="course--detail--title">Course</h3>
                             <h4 class="course--name">{courseDetails.title}</h4>
-                            {/* <p>By {courseDetails.user.firstName} {courseDetails.user.lastName}</p> */}
+                            <p>By {user.firstName} {user.lastName}</p>
                             <p>{courseDetails.description}</p>
                         </div>
                         <div>
@@ -38,7 +44,7 @@ export default function CourseDetail (props) {
 
                             <h3 class="course--detail--title">Materials Needed</h3>
                             <ul class="course--detail--list">
-                                {/* {courseDetails.materialsNeeded.map(material => (<li>{material}</li>))} */}
+                                <li>{courseDetails.materialsNeeded}</li>
                             </ul>
                         </div>
                     </div>
@@ -46,10 +52,4 @@ export default function CourseDetail (props) {
                 </div>
             </main>
         );
-
 }
-
-//title
-//description
-//estimatedTime
-//materialsNeeded
