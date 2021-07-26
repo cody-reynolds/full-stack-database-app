@@ -10,15 +10,15 @@ export default function CourseDetail (props) {
     useEffect(() => {
       context.data.getCourseDetails(courseId.id)
       .then(courseData => setCourseDetails(courseData))
-      console.log(courseDetails);
-     }, []);
+      .then(console.log(courseDetails));
+    }, []);
 
         return(
             <main>
                 <div class="actions--bar">
                     <div class="wrap">
                         <a class="button" href="update-course.html">Update Course</a>
-                        <a class="button" href="#">Delete Course</a>
+                        <a class="button" href="delete-course.html">Delete Course</a>
                         <a class="button button-secondary" href="index.html">Return to List</a>
                     </div>
                 </div>
@@ -29,7 +29,7 @@ export default function CourseDetail (props) {
                         <div>
                             <h3 class="course--detail--title">Course</h3>
                             <h4 class="course--name">{courseDetails.title}</h4>
-                            <p>By {courseDetails.user.firstName} {courseDetails.user.lastName}</p>
+                            {/* <p>By {courseDetails.user.firstName} {courseDetails.user.lastName}</p> */}
                             <p>{courseDetails.description}</p>
                         </div>
                         <div>
