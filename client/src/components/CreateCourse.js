@@ -12,7 +12,7 @@ function CreateCourse (props) {
     const [emailAddress, setEmailAddress] = useState(authenticatedUser.emailAddress);
     const [password, setPassword] = useState(authenticatedUser.password);
 
-    function submit() {
+    async function submit() {
         const {context} = props;
 
         const title = courseTitle;
@@ -32,7 +32,7 @@ function CreateCourse (props) {
           id
         };
 
-        context.data.createCourse(course, email, pass)
+        await context.data.createCourse(course, email, pass)
 
         .then(errors => {
           if(errors.length) { // If there even are any errors,
