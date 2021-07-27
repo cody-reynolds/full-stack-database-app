@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
 
 
 export default function CourseDetail (props) {
@@ -13,18 +14,16 @@ export default function CourseDetail (props) {
       context.data.getCourseDetails(id)
       .then(courseData => {
           setCourseDetails(courseData);
-          setUser(courseDetails.user);
+          setUser(courseData.user);
         })
-      .then(console.log(courseDetails))
-      .then(console.log(user));
     }, []);
 
         return(
             <main>
                 <div className="actions--bar">
                     <div className="wrap">
-                        <a className="button" href="update-course.html">Update Course</a>
-                        <a className="button" href="delete-course.html">Delete Course</a>
+                        <Link className="button" to={`/courses/${id}/update/`}>Update Course</Link>
+                        <Link className="button" to={`/courses/${id}/delete`}>Delete Course</Link>
                         <Link className="button button-secondary" to="/">Return to List</Link>
                     </div>
                 </div>
@@ -36,7 +35,7 @@ export default function CourseDetail (props) {
                             <h3 class="course--detail--title">Course</h3>
                             <h4 class="course--name">{courseDetails.title}</h4>
                             <p>By {user.firstName} {user.lastName}</p>
-                            <p>{courseDetails.description}</p>
+                            <p><ReactMarkdown>{courseDetails.description}</ReactMarkdown></p>
                         </div>
                         <div>
                             <h3 class="course--detail--title">Estimated Time</h3>
@@ -44,7 +43,7 @@ export default function CourseDetail (props) {
 
                             <h3 class="course--detail--title">Materials Needed</h3>
                             <ul class="course--detail--list">
-                                <li>{courseDetails.materialsNeeded}</li>
+                            <ReactMarkdown>{courseDetails.materialsNeeded}</ReactMarkdown>
                             </ul>
                         </div>
                     </div>
