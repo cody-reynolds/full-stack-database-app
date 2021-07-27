@@ -1,12 +1,15 @@
+// Import React Dependencies
 import React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route} from "react-router-dom";
 
+// Import HOCs
 import withContext from './Context';
 import PrivateRoute from './PrivateRoute';
 
+// Import Components
 import Header from './components/Header';
 import UserSignIn from './components/UserSignIn';
 import UserSignUp from './components/UserSignUp';
@@ -17,7 +20,7 @@ import CreateCourse from './components/CreateCourse';
 import UpdateCourse from './components/UpdateCourse';
 import NotFound from './components/NotFound';
 
-
+// Subscribe app's components to Context
 const HeaderWithContext = withContext(Header);
 const UserSignInWithContext = withContext(UserSignIn);
 const UserSignUpWithContext = withContext(UserSignUp);
