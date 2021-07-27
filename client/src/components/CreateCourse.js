@@ -7,10 +7,10 @@ function CreateCourse (props) {
     const [materialsNeeded, setMaterialsNeeded] = useState('');
     const [errors, setErrors] = useState([]);
     const {context} = props;
-    const {authenticatedUser} = context;
+    const {authenticatedUser, authenticatedPassword} = context;
     const [userId, setUserId] = useState(authenticatedUser.id)
     const [emailAddress, setEmailAddress] = useState(authenticatedUser.emailAddress);
-    const [password, setPassword] = useState(authenticatedUser.password);
+    const [password, setPassword] = useState(authenticatedPassword);
 
     async function submit() {
         const {context} = props;
