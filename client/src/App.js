@@ -5,6 +5,7 @@ import {
   Route} from "react-router-dom";
 
 import withContext from './Context';
+import PrivateRoute from './PrivateRoute';
 
 import Header from './components/Header';
 import UserSignIn from './components/UserSignIn';
@@ -15,8 +16,6 @@ import CourseDetail from './components/CourseDetail';
 import CreateCourse from './components/CreateCourse';
 import UpdateCourse from './components/UpdateCourse';
 import NotFound from './components/NotFound';
-import Forbidden from './components/Forbidden';
-import Error from './components/Error';
 
 
 const HeaderWithContext = withContext(Header);
@@ -37,9 +36,9 @@ function App() {
       <HeaderWithContext />
       <Switch>
         <Route exact path="/" component={CoursesWithContext} />
-        <Route exact path="/courses/create" component={CreateCoursewithContext} />
+        <PrivateRoute exact path="/courses/create" component={CreateCoursewithContext} />
         <Route exact path="/courses/:id" component={CourseDetailWithContext} />
-        <Route exact path="/courses/:id/update" component={UpdateCourseWithContext} />
+        <PrivateRoute exact path="/courses/:id/update" component={UpdateCourseWithContext} />
         <Route path="/signin" component={UserSignInWithContext} />
         <Route path="/signup" component={UserSignUpWithContext} />
         <Route path="/signout" component={UserSignOutWithContext} />

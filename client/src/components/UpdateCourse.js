@@ -57,7 +57,7 @@ function UpdateCourse (props) {
     }
 
     function cancel() {
-        props.history.push('/');
+        props.history.push(`/courses/${courseDetails.id}`);
     }
 
     return(
