@@ -5,21 +5,25 @@ function UpdateCourse (props) {
     const {id} = useParams();
     const [courseDetails, setCourseDetails] = useState([]);
     const [user, setUser] = useState([])
-    const [courseTitle, setCourseTitle] = useState('');
-    const [courseDescription, setCourseDescription] = useState('');
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
     const [estimatedTime, setEstimatedTime] = useState('');
     const [materialsNeeded, setMaterialsNeeded] = useState('');
     const [errors, setErrors] = useState([]);
     const {context} = props;
-    const {authenticatedUser} = context;
+    const {authenticatedUser, authenticatedPassword} = context;
+    const [userId] = useState(authenticatedUser.id)
+    const [emailAddress] = useState(authenticatedUser.emailAddress);
+    const [password] = useState(authenticatedPassword);
+
 
     useEffect(() => {
       context.data.getCourseDetails(id)
       .then(courseData => {
           setCourseDetails(courseData);
           setUser(courseData.user);
-          setCourseTitle(courseData.title);
-          setCourseDescription(courseData.description);
+          setTitle(courseData.title);
+          setDescription(courseData.description);
           setEstimatedTime(courseData.estimatedTime);
           setMaterialsNeeded(courseData.materialsNeeded);
         })
@@ -30,13 +34,14 @@ function UpdateCourse (props) {
         const {context} = props;
 
         const course = {
-          courseTitle,
-          courseDescription,
+          title,
+          description,
           estimatedTime,
           materialsNeeded,
+          userId
         };
 
-        context.data.updateCourse(courseDetails.id, course, authenticatedUser.username, authenticatedUser.password)
+        context.data.updateCourse(courseDetails.id, course, emailAddress, password)
 
         .then(errors => {
           if(errors.length) { // If there even are any errors,
@@ -58,16 +63,16 @@ function UpdateCourse (props) {
     return(
     <div className="wrap">
         <h2>Update Course</h2>
-        <form onSubmit={submit}>
+        <form onSubmit={(e) => {e.preventDefault(); submit()}}>
             <div className="main--flex">
 
                 <div>
                     <label for="courseTitle">Course Title</label>
-                    <input id="courseTitle" name="courseTitle" type="text" value={courseTitle} onChange={(e) => {setCourseTitle(e.target.value);}}/>
+                    <input id="courseTitle" name="courseTitle" type="text" value={title} onChange={(e) => {setTitle(e.target.value);}}/>
                     <p>By {user.firstName} {user.lastName}</p>
 
                     <label for="courseDescription">Course Description</label>
-                    <textarea id="courseDescription" name="courseDescription" defaultValue={courseDescription} onChange={(e) => {setCourseDescription(e.target.value);}}></textarea>
+                    <textarea id="courseDescription" name="courseDescription" defaultValue={description} onChange={(e) => {setDescription(e.target.value);}}></textarea>
                 </div>
 
                 <div>

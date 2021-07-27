@@ -1,38 +1,30 @@
 import React, {useState} from 'react';
 
 function CreateCourse (props) {
-    const [courseTitle, setCourseTitle] = useState('');
-    const [courseDescription, setCourseDescription] = useState('');
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
     const [estimatedTime, setEstimatedTime] = useState('');
     const [materialsNeeded, setMaterialsNeeded] = useState('');
     const [errors, setErrors] = useState([]);
     const {context} = props;
     const {authenticatedUser, authenticatedPassword} = context;
-    const [userId, setUserId] = useState(authenticatedUser.id)
-    const [emailAddress, setEmailAddress] = useState(authenticatedUser.emailAddress);
-    const [password, setPassword] = useState(authenticatedPassword);
+    const [userId] = useState(authenticatedUser.id)
+    const [emailAddress] = useState(authenticatedUser.emailAddress);
+    const [password] = useState(authenticatedPassword);
 
     async function submit() {
         const {context} = props;
-
-        const title = courseTitle;
-        const description = courseDescription;
-        const time = estimatedTime;
-        const materials = materialsNeeded;
-        const id = userId;
-        const email = emailAddress;
-        const pass = password;
 
         //New Course Payload
         const course = {
           title,
           description,
-          time,
-          materials,
-          id
+          estimatedTime,
+          materialsNeeded,
+          userId
         };
 
-        await context.data.createCourse(course, email, pass)
+        await context.data.createCourse(course, emailAddress, password)
 
         .then(errors => {
           if(errors.length) { // If there even are any errors,
@@ -62,11 +54,11 @@ function CreateCourse (props) {
 
                 <div>
                     <label for="courseTitle">Course Title</label>
-                    <input id="courseTitle" name="courseTitle" type="text" defaultValue="" onChange={(e) => {setCourseTitle(e.target.value);}}/>
+                    <input id="courseTitle" name="courseTitle" type="text" defaultValue="" onChange={(e) => {setTitle(e.target.value);}}/>
                     <p>By {authenticatedUser.firstName} {authenticatedUser.lastName}</p>
 
                     <label for="courseDescription">Course Description</label>
-                    <textarea id="courseDescription" name="courseDescription" defaultValue="" onChange={(e) => {setCourseDescription(e.target.value);}}></textarea>
+                    <textarea id="courseDescription" name="courseDescription" defaultValue="" onChange={(e) => {setDescription(e.target.value);}}></textarea>
                 </div>
 
                 <div>

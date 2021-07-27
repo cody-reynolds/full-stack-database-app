@@ -69,6 +69,7 @@ export class Provider extends Component {
             };
         });
         Cookies.remove('authenticatedUser');
+        Cookies.remove('authenticatedPassword');
     }
 }
 

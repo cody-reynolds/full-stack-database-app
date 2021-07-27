@@ -7,23 +7,48 @@ import ReactMarkdown from 'react-markdown';
 export default function CourseDetail (props) {
     const {id} = useParams();
     const [courseDetails, setCourseDetails] = useState([]);
-    const [user, setUser] = useState([])
+    const [owner, setOwner] = useState([])
     const {context} = props;
+    const {authenticatedUser, authenticatedPassword} = context;
+    const [currentUserId] = useState(authenticatedUser.id);
+    const [emailAddress] = useState(authenticatedUser.emailAddress)
+    const [password] = useState(authenticatedPassword);
+    const [errors, setErrors] = useState([]);
 
     useEffect(() => {
       context.data.getCourseDetails(id)
       .then(courseData => {
           setCourseDetails(courseData);
-          setUser(courseData.user);
+          setOwner(courseData.user);
         })
     }, []);
+
+    function deleteHandler() {
+        context.data.deleteCourse(id, emailAddress, password)
+        .then(errors => {
+            if(errors.length) {
+                setErrors({errors});
+            } else {
+                context.data.getCourses();
+                props.history.push('/');
+            }
+        })
+        .catch(err => {
+            console.log(err);
+            props.history.push('/error');
+        })
+    }
 
         return(
             <main>
                 <div className="actions--bar">
                     <div className="wrap">
+                    {(owner.id === currentUserId) ?
+                    <React.Fragment>
                         <Link className="button" to={`/courses/${id}/update/`}>Update Course</Link>
-                        <Link className="button" to={`/courses/${id}/delete`}>Delete Course</Link>
+                        <button className="button" onClick={(e) => {e.preventDefault(); deleteHandler()}}>Delete Course</button>
+                    </React.Fragment>
+                    : null }
                         <Link className="button button-secondary" to="/">Return to List</Link>
                     </div>
                 </div>
@@ -34,7 +59,7 @@ export default function CourseDetail (props) {
                         <div>
                             <h3 class="course--detail--title">Course</h3>
                             <h4 class="course--name">{courseDetails.title}</h4>
-                            <p>By {user.firstName} {user.lastName}</p>
+                            <p>By {owner.firstName} {owner.lastName}</p>
                             <p><ReactMarkdown>{courseDetails.description}</ReactMarkdown></p>
                         </div>
                         <div>
