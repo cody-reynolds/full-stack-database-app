@@ -10,9 +10,9 @@ export default function CourseDetail (props) {
     const [owner, setOwner] = useState([])
     const {context} = props;
     const {authenticatedUser, authenticatedPassword} = context;
-    const [currentUserId] = useState(authenticatedUser.id);
-    const [emailAddress] = useState(authenticatedUser.emailAddress)
-    const [password] = useState(authenticatedPassword);
+    const [currentUserId, setCurrentUserId] = useState("");
+    const [emailAddress] = useState("")
+    const [password] = useState("");
     const [errors, setErrors] = useState([]);
 
     useEffect(() => {
@@ -21,6 +21,11 @@ export default function CourseDetail (props) {
           setCourseDetails(courseData);
           setOwner(courseData.user);
         })
+
+        if(authenticatedUser !== null){
+            setCurrentUserId(authenticatedUser.id);
+        }
+
     }, []);
 
     function deleteHandler() {
