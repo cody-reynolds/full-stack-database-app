@@ -11,8 +11,8 @@ export default function CourseDetail (props) {
     const {context} = props;
     const {authenticatedUser, authenticatedPassword} = context;
     const [currentUserId, setCurrentUserId] = useState("");
-    const [emailAddress] = useState("")
-    const [password] = useState("");
+    const [emailAddress, setEmailAddress] = useState("")
+    const [password, setPassword] = useState("");
     const [errors, setErrors] = useState([]);
 
     useEffect(() => {
@@ -24,6 +24,8 @@ export default function CourseDetail (props) {
 
         if(authenticatedUser !== null){
             setCurrentUserId(authenticatedUser.id);
+            setEmailAddress(authenticatedUser.emailAddress);
+            setPassword(authenticatedPassword);
         }
 
     }, []);
