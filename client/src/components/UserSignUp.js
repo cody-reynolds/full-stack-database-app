@@ -22,6 +22,8 @@ export default class UserSignUp extends Component {
       errors,
     } = this.state;
 
+
+
     return (
       <div className="form--centered">
           <h2>Sign Up</h2>
@@ -96,11 +98,10 @@ export default class UserSignUp extends Component {
       emailAddress,
       password,
       confirmPassword,
+      errors
     } = this.state;
 
     // New User Payload
-    // This will be passed to the CreateUser method.
-    // We have access to this method because UserSignUp is wrapped in Context.
     const user = {
       firstName,
       lastName,
@@ -108,7 +109,13 @@ export default class UserSignUp extends Component {
       password,
     };
 
-    if(password === confirmPassword){
+    // Push error into state if the confirm password does not match
+    if(password !== confirmPassword){
+      this.setState({errors: "Both passwords must match"});
+      console.log(errors);
+
+      // Executes normal POST request with error handling if passwords are OK
+    } else if(password === confirmPassword){
       context.data.createUser(user)
       .then(errors => {
         if(errors.length) {
@@ -124,8 +131,6 @@ export default class UserSignUp extends Component {
       console.log(err);
       this.props.history.push('/error');
     });
-  } else {
-      this.setState({errors : "Both passwords must match"});
   }
 }
 
