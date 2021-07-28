@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 
+// Renders course cards on the home page via GET request to the API.
 export default class Courses extends Component {
 
     state = {

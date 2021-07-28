@@ -1,5 +1,6 @@
 // This file contains the helper methods that perform our API calls.
 
+// Brings in API base URL
 import config from './config';
 
 export default class Data {
@@ -45,10 +46,10 @@ export default class Data {
     // getUser - a GET request to api/users, will require authentication
     async getUser(username, password) {
         const response = await this.api(`/users`, 'GET', null, true, {username, password});
-        if(response.status === 200) {
+        if(response.status === 200) { // Successful
             return response.json().then(data => data);
         }
-        else if (response.status === 401) {
+        else if (response.status === 401) { // Unauthorized
             return null;
         }
         else {
@@ -59,10 +60,10 @@ export default class Data {
     // createUser - a POST request to api/users
     async createUser(user) {
         const response = await this.api('/users', 'POST', user);
-        if (response.status === 201) {
+        if (response.status === 201) { // Successfully Created
             return [];
         }
-        else if (response.status === 400) {
+        else if (response.status === 400) { // Bad Request (Validation Errors)
             return response.json().then(data => {
                 return data.errors;
             });
@@ -75,10 +76,10 @@ export default class Data {
     // getCourses - a GET request to api/courses
     async getCourses() {
         const response = await this.api(`/courses`, 'GET', null, false, null);
-            if (response.status === 200) {
+            if (response.status === 200) { // Successful
                 return response.json().then(data => data);
             }
-            else if (response.status === 400) {
+            else if (response.status === 400) { // Bad Request
                 return response.json().then(data => {
                     return data.errors;
                 });
@@ -91,10 +92,10 @@ export default class Data {
     // getCourseDetails - a GET request to api/courses/:id
     async getCourseDetails(courseId) {
         const response = await this.api(`/courses/${courseId}`, 'GET', null, false, null);
-        if (response.status === 200) {
+        if (response.status === 200) { // Successfully Created
             return response.json().then(data => data);
         }
-        else if (response.status === 400) {
+        else if (response.status === 400) { // Bad Request (Validation Errrors) - invalid course ID
             return response.json().then(data => {
                 return data.errors;
             });
@@ -107,10 +108,10 @@ export default class Data {
     // createCourse - a POST request to api/courses
     async createCourse(course, username, password) {
         const response = await this.api('/courses', 'POST', course, true, {username, password});
-        if (response.status === 201) {
+        if (response.status === 201) { //Successfully Created
             return [];
         }
-        else if (response.status === 400) {
+        else if (response.status === 400) { // Bad Request (Validation Errors)
             return response.json().then(data => {
                 return data.errors;
             });
@@ -124,18 +125,18 @@ export default class Data {
     // updateCourse - a PUT request to api/courses/:id
     async updateCourse(courseId, details, username, password) {
         const response = await this.api(`/courses/${courseId}`, 'PUT', details, true, {username, password});
-        if (response.status === 204) {
+        if (response.status === 204) { // Successful
             return []; //Because a successful update does not return data
         }
-        else if (response.status === 400) {
+        else if (response.status === 400) { // Bad Request (Validation Errors)
             return response.json().then(data => {
                 return data.errors;
             });
         }
-        else if (response.status === 401) {
+        else if (response.status === 401) { // Unauthorized (Not Logged In)
             return null;
         }
-        else if (response.status === 403) {
+        else if (response.status === 403) { // Forbidden (Not Course Owner)
             return response.json().then(data => {
                 return data.errors;
             });
@@ -148,15 +149,15 @@ export default class Data {
     // deleteCourse - a DELETE request to api/courses/:id
     async deleteCourse(courseId, username, password) {
         const response = await this.api(`/courses/${courseId}`, 'DELETE', null, true, {username, password});
-        if (response.status === 204) {
+        if (response.status === 204) { // Successful
             return []; //Because a succesful deletion does not return data
         }
-        else if (response.status === 401) {
+        else if (response.status === 401) { // Unauthorized (Not Logged In)
             return response.json().then(data => {
                 return data.errors;
             });
         }
-        else if (response.status === 403) {
+        else if (response.status === 403) { // Forbidden (Not Course Owner)
             return response.json().then(data => {
                 return data.errors;
             });

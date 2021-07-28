@@ -11,6 +11,7 @@ const Context = React.createContext();
 export class Provider extends Component {
 
     state = {
+        // Persists user authentication using cookies
         authenticatedUser: Cookies.getJSON('authenticatedUser') || null,
         authenticatedPassword: Cookies.getJSON('authenticatedPassword') || null
     };

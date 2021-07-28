@@ -54,6 +54,8 @@ export default class UserSignIn extends Component {
     )
 }
 
+  // Helper functions for this component
+
     change = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -73,7 +75,6 @@ export default class UserSignIn extends Component {
           .then( user => {
             if(user === null) {
               this.setState(() => {
-                // We use return here because if there are errors, that's the end result.
                 return { errors: ['Sign-in was unsuccessful']};
               });
             } else {

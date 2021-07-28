@@ -77,6 +77,8 @@ export default class UserSignUp extends Component {
     );
   }
 
+  // Helper Functions for this Component
+
   change = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -100,7 +102,6 @@ export default class UserSignUp extends Component {
       errors
     } = this.state;
 
-    // New User Payload
     const user = {
       firstName,
       lastName,
@@ -108,8 +109,7 @@ export default class UserSignUp extends Component {
       password,
     };
 
-
-     // Executes normal POST request with error handling if passwords are OK
+     // Executes normal POST request with error handling if passwords match
     if(password === confirmPassword){
       context.data.createUser(user)
       .then(errors => {
@@ -128,7 +128,6 @@ export default class UserSignUp extends Component {
     });
   }
 }
-
 
 
   cancel = () => {

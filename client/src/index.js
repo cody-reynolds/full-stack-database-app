@@ -1,3 +1,6 @@
+// Entry point into app. Imports React, React DOM, Context Provider, and App
+// Renders App, wrapped in Provider, at the root div.
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 

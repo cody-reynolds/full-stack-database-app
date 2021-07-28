@@ -1,6 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
+// Header component conditionally renders Sign In/Sign Up, or greets the Authenticated user and shows Sign Out.
+// Authentication status is maintained in global scope via context.
 class Header extends React.Component {
     render() {
         const {context} = this.props;

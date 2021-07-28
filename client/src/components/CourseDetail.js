@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
 import { useParams } from 'react-router-dom';
@@ -27,14 +28,14 @@ export default function CourseDetail (props) {
             setEmailAddress(authenticatedUser.emailAddress);
             setPassword(authenticatedPassword);
         }
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     function deleteHandler() {
         context.data.deleteCourse(id, emailAddress, password)
         .then(errors => {
             if(errors.length) {
-                setErrors({errors});
+                setErrors(errors);
             } else {
                 context.data.getCourses();
                 props.history.push('/');

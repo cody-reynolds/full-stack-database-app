@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Catch-all component that displays any time a user navigates to a non-existent URL.
 export default function NotFound() {
     return(
         <div class="wrap">

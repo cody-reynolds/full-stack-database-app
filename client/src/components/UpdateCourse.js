@@ -16,7 +16,7 @@ function UpdateCourse (props) {
     const [emailAddress] = useState(authenticatedUser.emailAddress);
     const [password] = useState(authenticatedPassword);
 
-
+    // When component mounts, fetches the specific data on this course from the API and stores data in state.
     useEffect(() => {
       context.data.getCourseDetails(id)
       .then(courseData => {
@@ -27,6 +27,7 @@ function UpdateCourse (props) {
           setEstimatedTime(courseData.estimatedTime);
           setMaterialsNeeded(courseData.materialsNeeded);
         })
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 
@@ -60,6 +61,7 @@ function UpdateCourse (props) {
         props.history.push(`/courses/${courseDetails.id}`);
     }
 
+    // Secondary component that displays validation errors.
     function ErrorsDisplay() {
       let errorsDisplay = null;
 
@@ -79,6 +81,7 @@ function UpdateCourse (props) {
       return errorsDisplay;
     }
 
+    // To-Do: Re-create this component using Form child element.
     return(
         <div className="wrap">
             <h2>Update Course</h2>

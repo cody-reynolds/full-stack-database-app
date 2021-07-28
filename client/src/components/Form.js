@@ -1,5 +1,6 @@
 import React from 'react';
 
+// Form component that is used in Sign In and Sign Up.
 function Form(props) {
     const {
         cancel,
@@ -19,6 +20,7 @@ function Form(props) {
         cancel();
     }
 
+    // Utilizes render prop for form elements.
     return (
         <React.Fragment>
             <ErrorsDisplay errors={errors} />
@@ -31,6 +33,7 @@ function Form(props) {
     );
 }
 
+// Secondary component that shows validation errors on submit.
 function ErrorsDisplay({ errors }) {
     let errorsDisplay = null;
 
