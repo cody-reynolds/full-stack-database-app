@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Link, useParams} from 'react-router-dom';
+import {useParams} from 'react-router-dom';
 
 function UpdateCourse (props) {
     const {id} = useParams();
@@ -12,7 +12,7 @@ function UpdateCourse (props) {
     const [errors, setErrors] = useState([]);
     const {context} = props;
     const {authenticatedUser, authenticatedPassword} = context;
-    const [userId] = useState(authenticatedUser.id)
+    const [userId] = useState(authenticatedUser.id);
     const [emailAddress] = useState(authenticatedUser.emailAddress);
     const [password] = useState(authenticatedPassword);
 
@@ -30,7 +30,7 @@ function UpdateCourse (props) {
     }, []);
 
 
-    function submit() {
+    async function submit() {
         const {context} = props;
 
         const course = {
@@ -41,12 +41,12 @@ function UpdateCourse (props) {
           userId
         };
 
-        context.data.updateCourse(courseDetails.id, course, emailAddress, password)
+        await context.data.updateCourse(courseDetails.id, course, emailAddress, password)
 
         .then(errors => {
-          if(errors.length) { // If there even are any errors,
-            setErrors({errors}); // Put them in the errors state of this component.
-          } else { // If there weren't any errors (the length of the array is 0)
+          if(errors.length) {
+            return setErrors(errors);
+          } else {
             props.history.push(`/courses/${courseDetails.id}`)
           }
         })
@@ -60,35 +60,55 @@ function UpdateCourse (props) {
         props.history.push(`/courses/${courseDetails.id}`);
     }
 
-    return(
-    <div className="wrap">
-        <h2>Update Course</h2>
-        <form onSubmit={(e) => {e.preventDefault(); submit()}}>
-            <div className="main--flex">
+    function ErrorsDisplay() {
+      let errorsDisplay = null;
 
-                <div>
-                    <label for="courseTitle">Course Title</label>
-                    <input id="courseTitle" name="courseTitle" type="text" value={title} onChange={(e) => {setTitle(e.target.value);}}/>
-                    <p>By {user.firstName} {user.lastName}</p>
-
-                    <label for="courseDescription">Course Description</label>
-                    <textarea id="courseDescription" name="courseDescription" defaultValue={description} onChange={(e) => {setDescription(e.target.value);}}></textarea>
-                </div>
-
-                <div>
-                    <label for="estimatedTime">Estimated Time</label>
-                    <input id="estimatedTime" name="estimatedTime" type="text" value={estimatedTime} onChange={(e) => {setEstimatedTime(e.target.value);}}/>
-                    <label for="materialsNeeded">Materials Needed</label>
-                    <textarea id="materialsNeeded" name="materialsNeeded" defaultValue={materialsNeeded} onChange={(e) => {setMaterialsNeeded(e.target.value);}}></textarea>
-                </div>
-
+      if (errors.length) {
+        errorsDisplay = (
+          <div className="validation--errors">
+            <h2>Validation error(s)</h2>
+            <div>
+              <ul>
+                {errors.map((error, i) => <li key={i}>{error}</li>)}
+              </ul>
             </div>
+          </div>
+        );
+      }
 
-            <button class="button" type="submit">Update Course</button>
-            <button class="button button-secondary" onClick={cancel}>Cancel</button>
-        </form>
-    </div>
-    )
+      return errorsDisplay;
+    }
+
+    return(
+        <div className="wrap">
+            <h2>Update Course</h2>
+            <ErrorsDisplay />
+            <form onSubmit={(e) => {e.preventDefault(); submit()}}>
+                <div className="main--flex">
+
+                    <div>
+                        <label for="courseTitle">Course Title</label>
+                        <input id="courseTitle" name="courseTitle" type="text" value={title} onChange={(e) => {setTitle(e.target.value);}}/>
+                        <p>By {user.firstName} {user.lastName}</p>
+
+                        <label for="courseDescription">Course Description</label>
+                        <textarea id="courseDescription" name="courseDescription" defaultValue={description} onChange={(e) => {setDescription(e.target.value);}}></textarea>
+                    </div>
+
+                    <div>
+                        <label for="estimatedTime">Estimated Time</label>
+                        <input id="estimatedTime" name="estimatedTime" type="text" value={estimatedTime} onChange={(e) => {setEstimatedTime(e.target.value);}}/>
+                        <label for="materialsNeeded">Materials Needed</label>
+                        <textarea id="materialsNeeded" name="materialsNeeded" defaultValue={materialsNeeded} onChange={(e) => {setMaterialsNeeded(e.target.value);}}></textarea>
+                    </div>
+
+                </div>
+
+                <button class="button" type="submit">Update Course</button>
+                <button class="button button-secondary" onClick={cancel}>Cancel</button>
+            </form>
+        </div>
+  )
 
 }
 

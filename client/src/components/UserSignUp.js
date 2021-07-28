@@ -23,7 +23,6 @@ export default class UserSignUp extends Component {
     } = this.state;
 
 
-
     return (
       <div className="form--centered">
           <h2>Sign Up</h2>
@@ -109,13 +108,9 @@ export default class UserSignUp extends Component {
       password,
     };
 
-    // Push error into state if the confirm password does not match
-    if(password !== confirmPassword){
-      this.setState({errors: "Both passwords must match"});
-      console.log(errors);
 
-      // Executes normal POST request with error handling if passwords are OK
-    } else if(password === confirmPassword){
+     // Executes normal POST request with error handling if passwords are OK
+    if(password === confirmPassword){
       context.data.createUser(user)
       .then(errors => {
         if(errors.length) {
@@ -133,6 +128,7 @@ export default class UserSignUp extends Component {
     });
   }
 }
+
 
 
   cancel = () => {

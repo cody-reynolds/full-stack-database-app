@@ -127,6 +127,11 @@ export default class Data {
         if (response.status === 204) {
             return []; //Because a successful update does not return data
         }
+        else if (response.status === 400) {
+            return response.json().then(data => {
+                return data.errors;
+            });
+        }
         else if (response.status === 401) {
             return null;
         }
@@ -143,7 +148,7 @@ export default class Data {
     // deleteCourse - a DELETE request to api/courses/:id
     async deleteCourse(courseId, username, password) {
         const response = await this.api(`/courses/${courseId}`, 'DELETE', null, true, {username, password});
-        if (response.status === 200) {
+        if (response.status === 204) {
             return []; //Because a succesful deletion does not return data
         }
         else if (response.status === 401) {
