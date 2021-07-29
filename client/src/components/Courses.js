@@ -21,7 +21,7 @@ export default class Courses extends Component {
     return(
         <main>
                 <div className="wrap main--grid">
-                {courseData.map((course, i) => ( // Add key component to course to fix console warning
+                {courseData.map((course, i) => ( // Add key prop to course to fix console warning
                 <Link className="course--module course--link" to={`/courses/${course.id}`} key={i}>
                     <h2 className="course--label">Course</h2>
                     <h3 className="course--title">{course.title}</h3>

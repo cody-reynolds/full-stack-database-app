@@ -20,14 +20,23 @@ function UpdateCourse (props) {
     useEffect(() => {
       context.data.getCourseDetails(id)
       .then(courseData => {
+        if(courseData.user.id !== userId) {
+          props.history.push('/Forbidden');
+        } else {
           setCourseDetails(courseData);
           setUser(courseData.user);
           setTitle(courseData.title);
           setDescription(courseData.description);
           setEstimatedTime(courseData.estimatedTime);
           setMaterialsNeeded(courseData.materialsNeeded);
-        })
-    }, [context.data, id]);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        props.history.push('/error');
+      })
+
+    }, [context.data, id, props.history, userId]);
 
 
     async function submit() {
