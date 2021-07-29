@@ -56,6 +56,8 @@ export default class UserSignIn extends Component {
 
   // Helper functions for this component
 
+    // Form input change handler
+    // Sets the state value of each input's corresponding state component to the value inputted
     change = (event) => {
         const name = event.target.name;
         const value = event.target.value;
@@ -67,28 +69,34 @@ export default class UserSignIn extends Component {
         });
       }
 
-      submit = () => {
-        const {context} = this.props;
-        const {from} = this.props.location.state || { from: {pathname: '/'}};
-        const {emailAddress, password} = this.state;
-        context.actions.signIn(emailAddress, password)
-          .then( user => {
-            if(user === null) {
-              this.setState(() => {
-                return { errors: ['Sign-in was unsuccessful']};
-              });
-            } else {
-              this.props.history.push(from);
-            }
-          })
-          .catch( err => {
-            console.log(err);
-            this.props.history.push('/error');
-          })
-      }
 
-      cancel = () => {
-        this.props.history.push('/');
-      }
+    // Submit button handler.
+    // If necessary, uses the from property of props.location.state to return the user to
+    // the page they were attempting to access before they were redirected.
+    // Throws an error if authentication fails.
+    submit = () => {
+      const {context} = this.props;
+      const {from} = this.props.location.state || { from: {pathname: '/'}};
+      const {emailAddress, password} = this.state;
+      context.actions.signIn(emailAddress, password)
+        .then( user => {
+          if(user === null) {
+            this.setState(() => {
+              return { errors: ['Sign-in was unsuccessful']};
+            });
+          } else {
+            this.props.history.push(from);
+          }
+        })
+        .catch( err => {
+          console.log(err);
+          this.props.history.push('/error');
+        })
+    }
+
+    // Cancel button handler - returns user to the home page
+    cancel = () => {
+      this.props.history.push('/');
+    }
 
 }

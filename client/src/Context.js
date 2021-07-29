@@ -46,6 +46,7 @@ export class Provider extends Component {
 
 
     // Sign In function
+    // Sets global authenticated user state and cookies.
     signIn = async (emailAddress, password) => {
         const user = await this.data.getUser(emailAddress, password);
         if (user !== null) {
@@ -55,6 +56,8 @@ export class Provider extends Component {
                     authenticatedPassword: password
                 };
             });
+            // Configures cookies so that user authentication credentials will persist
+            // across user's sessions in the app or browser windows.
             Cookies.set('authenticatedUser', JSON.stringify(user), {expires: 1});
             Cookies.set('authenticatedPassword', JSON.stringify(password), {expires: 1});
 
@@ -63,12 +66,14 @@ export class Provider extends Component {
     }
 
     // Sign Out function
+    // Resets global authenticated user state and cookies.
     signOut = () => {
         this.setState(() => {
             return {
                 authenticatedUser: null,
             };
         });
+        // Deletes authenticated user's cookies.
         Cookies.remove('authenticatedUser');
         Cookies.remove('authenticatedPassword');
     }

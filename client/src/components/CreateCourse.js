@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-// import Form from './Form';
 
 function CreateCourse (props) {
     const [title, setTitle] = useState('');
@@ -13,6 +12,8 @@ function CreateCourse (props) {
     const [emailAddress] = useState(authenticatedUser.emailAddress);
     const [password] = useState(authenticatedPassword);
 
+    // Handles course creation process. Bundles the data from the form and performs
+    // a POST request to the API. If successful, redirects user back to the list of courses.
     async function submit() {
         const {context} = props;
 
@@ -41,10 +42,12 @@ function CreateCourse (props) {
         });
     }
 
+    // Cancel button handler. Takes the user back to the home page.
     function cancel() {
         props.history.push('/');
     }
 
+    // Helper component that returns a list of formatted validation errors returned by the server, if there are any.
     function ErrorsDisplay() {
       let errorsDisplay = null;
 
@@ -100,36 +103,3 @@ function CreateCourse (props) {
 }
 
 export default CreateCourse;
-
-    //  Uses Form child component - causes Delete handler to fail in Course Details for unknown reasons.
-    //<div className="wrap">
-    //     <h2>Create Course</h2>
-    //     <Form
-    //       cancel={cancel}
-    //       errors={errors}
-    //       submit={submit}
-    //       submitButtonText="Create Course"
-    //       elements={() => ( //Elements is a "render prop"
-    //         <React.Fragment>
-    //           <div className="main--flex">
-
-    //             <div>
-    //                 <label for="courseTitle">Course Title</label>
-    //                 <input id="courseTitle" name="courseTitle" type="text" defaultValue="" onChange={(e) => {setTitle(e.target.value);}}/>
-    //                 <p>By {authenticatedUser.firstName} {authenticatedUser.lastName}</p>
-
-    //                 <label for="courseDescription">Course Description</label>
-    //                 <textarea id="courseDescription" name="courseDescription" defaultValue="" onChange={(e) => {setDescription(e.target.value);}}></textarea>
-    //             </div>
-
-    //             <div>
-    //                 <label for="estimatedTime">Estimated Time</label>
-    //                 <input id="estimatedTime" name="estimatedTime" type="text" defaultValue="" onChange={(e) => {setEstimatedTime(e.target.value);}}/>
-    //                 <label for="materialsNeeded">Materials Needed</label>
-    //                 <textarea id="materialsNeeded" name="materialsNeeded" defaultValue="" onChange={(e) => {setMaterialsNeeded(e.target.value);}}></textarea>
-    //             </div>
-
-    //           </div>
-    //         </React.Fragment>
-    //       )} />
-    //   </div>

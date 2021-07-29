@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react'
 import {Redirect} from 'react-router-dom';
 
-// Executes the signOut function from Context and redirects user to the root route.
+// Executes the signOut function from Context and redirects user to the home page.
 function UserSignOut (props) {
     const {context} = props;
 

@@ -30,16 +30,14 @@ export default class Data {
         }
 
         // Performs API call using configuration established above
-        // Reminder! Fetch is going to return a Promise.
+        // Note: Fetch is going to return a Promise.
         return fetch(url, options)
     }
 
 
    /*
-        Below are the helper methods that perform the various API requests.
-        Note to self - All of these are async/await functions.
-        Any time we are getting data from an outside source, we are in the land
-        of asynchronous JavaScript.
+        Below are the async helper methods that perform the various API requests.
+        They use the api() function defined above.
    */
 
 

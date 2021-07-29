@@ -79,6 +79,8 @@ export default class UserSignUp extends Component {
 
   // Helper Functions for this Component
 
+  // Form input change handler
+  // Sets the state value of each input's corresponding state component to the value inputted
   change = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -90,6 +92,10 @@ export default class UserSignUp extends Component {
     });
   }
 
+  // Submit button handler
+  // Creates user on sign up and returns them to the home page.
+  // Will return errors from the API as well as one client-side validation
+  // If Password and Confirm Password fields do not match.
   submit = () => {
     const {context} = this.props;
 
@@ -108,17 +114,16 @@ export default class UserSignUp extends Component {
       password,
     };
 
-     // Executes normal POST request with error handling if passwords match
      context.data.createUser(user)
      .then(errors => {
        if(password !== confirmPassword){
-          errors.push("Both passwords must match.") // Don't need to put it in state, just need to push it into the errors array.
+          errors.push("Both passwords must match.") // No need to set state here, just need to push it into the errors array.
          }
        if(errors.length) {
          this.setState({errors});
        } else {
          context.actions.signIn(emailAddress, password)
-         this.props.history.push('/') // Sign the user in
+         this.props.history.push('/')
      }
    })
     .catch(err => {
@@ -127,7 +132,7 @@ export default class UserSignUp extends Component {
    });
   }
 
-
+  // Cancel button handler - returns the user to the home page.
   cancel = () => {
     this.props.history.push('/');
   }

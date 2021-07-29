@@ -1,6 +1,6 @@
 import React from 'react';
 
-// Component that displays any time a user navigates to a non-existent URL.
+// Component that displays if the user tries to access the Update Course page on a course they do not own.
 export default function Forbidden() {
     return(
         <div className="wrap">

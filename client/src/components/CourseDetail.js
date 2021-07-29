@@ -1,7 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
 import {Link} from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom'; // Provides access to URL parameters
+
+// Formats the course data in markdown format to correctly display on the page
 import ReactMarkdown from 'react-markdown';
 
 
@@ -15,6 +17,7 @@ export default function CourseDetail (props) {
     const [emailAddress, setEmailAddress] = useState("")
     const [password, setPassword] = useState("");
 
+    // On render, fetches the specific course's details from the API and stores data in state.
     useEffect(() => {
         context.data.getCourseDetails(id)
         .then(courseData => {

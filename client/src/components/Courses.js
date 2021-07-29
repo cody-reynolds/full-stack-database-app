@@ -9,6 +9,8 @@ export default class Courses extends Component {
         authenticatedUser: []
       };
 
+    // On mount, uses the Data helper functions provided by Context to perform GET request to API.
+    // Stores the resulting information in state, as well as info about authenticated user.
     componentDidMount() {
         this.props.context.data.getCourses()
         .then(courseData => this.setState({courseData}));

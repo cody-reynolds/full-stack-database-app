@@ -38,7 +38,8 @@ function UpdateCourse (props) {
 
     }, [context.data, id, props.history, userId]);
 
-
+  // Handles course update process. Bundles the data from the form and performs
+    // a PUT request to the API. If successful, redirects user back to that course's detail page.
     async function submit() {
         const {context} = props;
 
@@ -65,11 +66,12 @@ function UpdateCourse (props) {
         });
     }
 
+    // Cancel button handler - returns the user to the details page of the course they were viewing.
     function cancel() {
         props.history.push(`/courses/${courseDetails.id}`);
     }
 
-    // Secondary component that displays validation errors.
+    // Helper component that returns a list of formatted validation errors returned by the server, if there are any.
     function ErrorsDisplay() {
       let errorsDisplay = null;
 
