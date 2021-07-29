@@ -1,4 +1,4 @@
-# full-stack-database-app
+# Full-Stack JavaScript Database App
 
 **Synopsis**
 \
