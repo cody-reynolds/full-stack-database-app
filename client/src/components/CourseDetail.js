@@ -14,33 +14,33 @@ export default function CourseDetail (props) {
     const [currentUserId, setCurrentUserId] = useState("");
     const [emailAddress, setEmailAddress] = useState("")
     const [password, setPassword] = useState("");
-    const [errors, setErrors] = useState([]);
 
     useEffect(() => {
-      context.data.getCourseDetails(id)
-      .then(courseData => {
-          setCourseDetails(courseData);
-          setOwner(courseData.user);
-        })
+        context.data.getCourseDetails(id)
+        .then(courseData => {
+            if(courseData) {
+                setCourseDetails(courseData);
+                setOwner(courseData.user);
+            } else {
+                props.history.push('/notfound');
+            }
+         })
 
         if(authenticatedUser !== null){
             setCurrentUserId(authenticatedUser.id);
             setEmailAddress(authenticatedUser.emailAddress);
             setPassword(authenticatedPassword);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
+    }, [authenticatedPassword, authenticatedUser, context.data, id, props.history]);
+
+    // Performs deletion of the course and takes the user back to the home page.
     function deleteHandler() {
         context.data.deleteCourse(id, emailAddress, password)
         .then(errors => {
-            if(errors.length) {
-                setErrors(errors);
-            } else {
                 context.data.getCourses();
                 props.history.push('/');
-            }
-        })
+            })
         .catch(err => {
             console.log(err);
             props.history.push('/error');
@@ -60,22 +60,22 @@ export default function CourseDetail (props) {
                         <Link className="button button-secondary" to="/">Return to List</Link>
                     </div>
                 </div>
-                <div class="wrap">
+                <div className="wrap">
                 <h2>Course Detail</h2>
                 <form>
-                    <div class="main--flex">
+                    <div className="main--flex">
                         <div>
-                            <h3 class="course--detail--title">Course</h3>
-                            <h4 class="course--name">{courseDetails.title}</h4>
+                            <h3 className="course--detail--title">Course</h3>
+                            <h4 className="course--name">{courseDetails.title}</h4>
                             <p>By {owner.firstName} {owner.lastName}</p>
                             <p><ReactMarkdown>{courseDetails.description}</ReactMarkdown></p>
                         </div>
                         <div>
-                            <h3 class="course--detail--title">Estimated Time</h3>
+                            <h3 className="course--detail--title">Estimated Time</h3>
                             <p>{courseDetails.estimatedTime}</p>
 
-                            <h3 class="course--detail--title">Materials Needed</h3>
-                            <ul class="course--detail--list">
+                            <h3 className="course--detail--title">Materials Needed</h3>
+                            <ul className="course--detail--list">
                             <ReactMarkdown>{courseDetails.materialsNeeded}</ReactMarkdown>
                             </ul>
                         </div>

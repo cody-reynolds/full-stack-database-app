@@ -99,7 +99,6 @@ export default class UserSignUp extends Component {
       emailAddress,
       password,
       confirmPassword,
-      errors
     } = this.state;
 
     const user = {
@@ -122,7 +121,7 @@ export default class UserSignUp extends Component {
          this.props.history.push('/') // Sign the user in
      }
    })
-   .catch( err => {
+    .catch(err => {
      console.log(err);
      this.props.history.push('/error');
    });

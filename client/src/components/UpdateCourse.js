@@ -106,8 +106,8 @@ function UpdateCourse (props) {
 
                 </div>
 
-                <button class="button" type="submit">Update Course</button>
-                <button class="button button-secondary" onClick={cancel}>Cancel</button>
+                <button className="button" type="submit">Update Course</button>
+                <button className="button button-secondary" onClick={cancel}>Cancel</button>
             </form>
         </div>
   )
