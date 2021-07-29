@@ -110,24 +110,23 @@ export default class UserSignUp extends Component {
     };
 
      // Executes normal POST request with error handling if passwords match
-    if(password === confirmPassword){
-      context.data.createUser(user)
-      .then(errors => {
-        if(errors.length) {
-          this.setState({errors});
-        } else {
-          context.actions.signIn(emailAddress, password) // Sign the user in
-      .then(() => {
-        this.props.history.push('/')
-        })
-      }
-    })
-    .catch( err => {
-      console.log(err);
-      this.props.history.push('/error');
-    });
+     context.data.createUser(user)
+     .then(errors => {
+       if(password !== confirmPassword){
+          errors.push("Both passwords must match.") // Don't need to put it in state, just need to push it into the errors array.
+         }
+       if(errors.length) {
+         this.setState({errors});
+       } else {
+         context.actions.signIn(emailAddress, password)
+         this.props.history.push('/') // Sign the user in
+     }
+   })
+   .catch( err => {
+     console.log(err);
+     this.props.history.push('/error');
+   });
   }
-}
 
 
   cancel = () => {
