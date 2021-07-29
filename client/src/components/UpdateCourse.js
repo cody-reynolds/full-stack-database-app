@@ -27,8 +27,7 @@ function UpdateCourse (props) {
           setEstimatedTime(courseData.estimatedTime);
           setMaterialsNeeded(courseData.materialsNeeded);
         })
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [context.data, id]);
 
 
     async function submit() {
@@ -46,7 +45,7 @@ function UpdateCourse (props) {
 
         .then(errors => {
           if(errors.length) {
-            return setErrors(errors);
+            setErrors(errors);
           } else {
             props.history.push(`/courses/${courseDetails.id}`)
           }
@@ -95,14 +94,14 @@ function UpdateCourse (props) {
                         <p>By {user.firstName} {user.lastName}</p>
 
                         <label for="courseDescription">Course Description</label>
-                        <textarea id="courseDescription" name="courseDescription" defaultValue={description} onChange={(e) => {setDescription(e.target.value);}}></textarea>
+                        <textarea id="courseDescription" name="courseDescription" defaultValue={description} onInput={(e) => {setDescription(e.target.value);}}></textarea>
                     </div>
 
                     <div>
                         <label for="estimatedTime">Estimated Time</label>
                         <input id="estimatedTime" name="estimatedTime" type="text" value={estimatedTime} onChange={(e) => {setEstimatedTime(e.target.value);}}/>
                         <label for="materialsNeeded">Materials Needed</label>
-                        <textarea id="materialsNeeded" name="materialsNeeded" defaultValue={materialsNeeded} onChange={(e) => {setMaterialsNeeded(e.target.value);}}></textarea>
+                        <textarea id="materialsNeeded" name="materialsNeeded" defaultValue={materialsNeeded} onInput={(e) => {setMaterialsNeeded(e.target.value);}}></textarea>
                     </div>
 
                 </div>
