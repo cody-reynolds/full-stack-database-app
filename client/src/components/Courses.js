@@ -13,9 +13,14 @@ export default class Courses extends Component {
     // Stores the resulting information in state, as well as info about authenticated user.
     componentDidMount() {
         this.props.context.data.getCourses()
-        .then(courseData => this.setState({courseData}));
+        .then(courseData => this.setState({courseData}))
+        .catch(err => {
+            console.log(err);
+            this.props.history.push('/error');
+        });
+
         this.setState({authenticatedUser: this.props.context.authenticatedUser})
-        }
+    }
 
     render() {
         const {courseData} = this.state;

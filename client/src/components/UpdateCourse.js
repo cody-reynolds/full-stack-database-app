@@ -20,8 +20,10 @@ function UpdateCourse (props) {
     useEffect(() => {
       context.data.getCourseDetails(id)
       .then(courseData => {
-        if(courseData.user.id !== userId) {
-          props.history.push('/Forbidden');
+        if(!courseData){ // If no course data available, redirect to not found
+          props.history.push('/notfound')
+        } else if(courseData.user.id !== userId) {  // If user is not owner, redirect to forbidden
+          props.history.push('/forbidden');
         } else {
           setCourseDetails(courseData);
           setUser(courseData.user);

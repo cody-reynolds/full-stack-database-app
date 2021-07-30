@@ -28,6 +28,10 @@ export default function CourseDetail (props) {
                 props.history.push('/notfound');
             }
          })
+         .catch(err => {
+             console.log(err);
+             props.history.push('/error');
+         })
 
         if(authenticatedUser !== null){
             setCurrentUserId(authenticatedUser.id);
